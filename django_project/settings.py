@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from pathlib import Path
+from environs import Env # new
+
+env = Env() # new
+env.read_env() # new
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +50,7 @@ INSTALLED_APPS = [
     "allauth.account", # new
     "allauth.socialaccount", # new
     "dj_rest_auth.registration", # new
+    "drf_spectacular", # new
     "dj_rest_auth", # new
     "accounts.apps.AccountsConfig", # new
     "posts.apps.PostsConfig", # new
@@ -58,6 +64,14 @@ REST_FRAMEWORK = {
 "rest_framework.authentication.SessionAuthentication",
 "rest_framework.authentication.TokenAuthentication", # new
 ],
+"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema", # new
+}
+
+SPECTACULAR_SETTINGS = {
+"TITLE": "Blog API Project",
+"DESCRIPTION": "A sample blog to learn about DRF",
+"VERSION": "1.0.0",
+# OTHER SETTINGS
 }
 
 

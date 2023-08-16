@@ -1,6 +1,6 @@
 # accounts/forms.py
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser
+from .models import CustomUser,HoraDeMatricula
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -13,3 +13,4 @@ class CustomUserChangeForm(UserChangeForm):
    class Meta:
      model = CustomUser
      fields = UserChangeForm.Meta.fields  
+

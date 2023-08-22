@@ -1,6 +1,7 @@
 # serializers.py
 from rest_framework import serializers
 from .models import Curso,CustomUser,Asistencia,Matriculas
+from datetime import datetime
 
 class CursoNombreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,18 +31,19 @@ class AsistenciaSerializer(serializers.ModelSerializer):
         matricula = Matriculas.objects.filter(id_usuario=user, codigo_curso__codigo_curso=codigo_curso).first()
         if matricula is None:
             raise serializers.ValidationError(f"No se encontró la matrícula para el estudiante con código {codigo_estudiante} y curso {codigo_curso}")
-        
+        validated_data['hora_registro'] = datetime.now().isoformat()
         return Asistencia.objects.create(id_matricula=matricula, **validated_data)
-    
 
-     
-class AsistenciaSerializer(serializers.ModelSerializer):
+
+class AsistenciaporcursoSerializer(serializers.ModelSerializer):
     nombre_usuario = serializers.CharField(source='id_matricula.id_usuario.name')
     urlfotoasistencia = serializers.CharField()
-    fecha_hora_asistencia = serializers.DateTimeField(source='hora_registro')
+    fecha_hora_asistencia = serializers.DateTimeField(source='hora_registro', format='%Y-%m-%d %I:%M %p')
     coordenada_x = serializers.CharField(source='latitud')
     coordenada_y = serializers.CharField(source='longitud')
 
     class Meta:
         model = Asistencia
         fields = ('nombre_usuario', 'urlfotoasistencia', 'fecha_hora_asistencia', 'coordenada_x', 'coordenada_y')
+
+

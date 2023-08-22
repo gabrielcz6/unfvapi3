@@ -13,7 +13,7 @@ from .utils import get_image_from_firebase, compare_images
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from accounts.models import Asistencia, Matriculas, CustomUser, Curso
-from .serializers import CursoNombreSerializer,AsistenciaSerializer,UserSerializer,AsistenciaSerializer
+from .serializers import CursoNombreSerializer,AsistenciaporcursoSerializer,UserSerializer,AsistenciaSerializer
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import serializers,generics, status
@@ -129,5 +129,13 @@ class AsistenciaPorCurso(APIView):
             hora_registro__range=(fecha_inicio, fecha_fin)
         )
 
-        serializer = AsistenciaSerializer(asistencias, many=True)
+        serializer = AsistenciaporcursoSerializer(asistencias, many=True)
         return Response(serializer.data)
+
+
+class EstudianteNombreView(APIView):
+
+    def get(self, request, codigo, *args, **kwargs):
+        estudiante = get_object_or_404(CustomUser, codigo=codigo)
+        serializer = UserSerializer(estudiante)
+        return Response(serializer.data, status=status.HTTP_200_OK)    

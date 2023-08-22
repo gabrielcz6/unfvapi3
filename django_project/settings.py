@@ -30,7 +30,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"] # new
+ALLOWED_HOSTS = ["localhost", "127.0.0.1","13.58.234.224"] # new
 
 
 # Application definition
@@ -91,6 +91,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = (
 "http://localhost:3000",
 "http://localhost:8000",
+'http://18.191.253.199',
 )
 
 # django_project/settings.py
@@ -154,7 +155,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
+
 
 USE_I18N = True
 
